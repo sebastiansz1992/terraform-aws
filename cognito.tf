@@ -4,7 +4,7 @@ provider "aws" {
     secret_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
 
-resource "aws_cognito_user_pool" "ac_cognito" {
+resource "aws_cognito_user_pool" "cognito" {
   name = "tesgroupfromterraform"
   username_attributes = [ "email" ]
   auto_verified_attributes = [ "email" ]
@@ -41,7 +41,7 @@ resource "aws_cognito_user_pool" "ac_cognito" {
 
 resource "aws_cognito_user_pool_client" "client" {
   name = "tesgroupfromterraformclient"
-  user_pool_id = aws_cognito_user_pool.ac_cognito.id
+  user_pool_id = aws_cognito_user_pool.cognito.id
   generate_secret     = false
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
   prevent_user_existence_errors = "ENABLED"
@@ -49,5 +49,5 @@ resource "aws_cognito_user_pool_client" "client" {
 
 resource "aws_cognito_user_pool_domain" "main" {
   domain       = "login-parametrizador-terraform"
-  user_pool_id = aws_cognito_user_pool.ac_cognito.id
+  user_pool_id = aws_cognito_user_pool.cognito.id
 }
