@@ -10,8 +10,14 @@ resource "aws_cognito_user_pool" "ac_cognito" {
   auto_verified_attributes = [ "email" ]
   schema {
     attribute_data_type = "String"
+    developer_only_attribute = false
+    mutable                  = false
     name = "email"
     required = true
+    string_attribute_constraints {
+      min_length = 6
+      max_length = 60
+    }
   }
   password_policy  {
     minimum_length    = 8
@@ -25,6 +31,11 @@ resource "aws_cognito_user_pool" "ac_cognito" {
       name = "verified_email"
       priority = 1
     }
+  }
+  lifecycle {
+    ignore_changes = [
+      schema     ### AWS doesn't allow schema updates, so every build will re-create the user pool unless we ignore this bit
+    ]
   }
 }
 
