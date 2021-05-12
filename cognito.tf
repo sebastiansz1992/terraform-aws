@@ -6,6 +6,7 @@ provider "aws" {
 
 resource "aws_cognito_user_pool" "cognito" {
   name = "tesgroupfromterraform"
+  email_verification_subject = "Código de verificación"
   username_attributes = [ "email" ]
   auto_verified_attributes = [ "email" ]
   schema {
@@ -19,6 +20,8 @@ resource "aws_cognito_user_pool" "cognito" {
       max_length = 60
     }
   }
+  sms_authentication_message = "Su código de verificación es {####}. "
+  sms_verification_message   = "Su código de autenticación es {####}. "
   password_policy  {
     minimum_length    = 8
     require_lowercase = true
