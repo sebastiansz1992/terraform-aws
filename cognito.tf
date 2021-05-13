@@ -1,9 +1,3 @@
-provider "aws" {
-    region = "us-east-1"
-    access_key = "XXXXXXXXXXXXXXXXXXXXXXXXX"
-    secret_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-}
-
 resource "aws_cognito_user_pool" "cognito" {
   name = "tesgroupfromterraform"
   email_verification_subject = "Código de verificación"
